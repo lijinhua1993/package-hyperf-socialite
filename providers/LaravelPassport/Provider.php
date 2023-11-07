@@ -2,10 +2,10 @@
 
 namespace HyperfSocialiteProviders\LaravelPassport;
 
-use Cblink\Hyperf\Socialite\Two\AbstractProvider;
-use Cblink\Hyperf\Socialite\Two\User;
 use GuzzleHttp\RequestOptions;
-use Hyperf\Utils\Arr;
+use Hyperf\Collection\Arr;
+use Lijinhua\HyperfSocialite\Two\AbstractProvider;
+use Lijinhua\HyperfSocialite\Two\User;
 
 class Provider extends AbstractProvider
 {
@@ -46,7 +46,7 @@ class Provider extends AbstractProvider
     /**
      * Get the authentication URL for the provider.
      *
-     * @param string $state
+     * @param  string  $state
      *
      * @return string
      */
@@ -68,7 +68,7 @@ class Provider extends AbstractProvider
     /**
      * Get the raw user for the given access token.
      *
-     * @param string $token
+     * @param  string  $token
      *
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -77,7 +77,7 @@ class Provider extends AbstractProvider
     {
         $response = $this->getHttpClient()->get($this->getLaravelPassportUrl('userinfo_uri'), [
             RequestOptions::HEADERS => [
-                'Authorization' => 'Bearer '.$token,
+                'Authorization' => 'Bearer ' . $token,
             ],
         ]);
 
@@ -87,13 +87,13 @@ class Provider extends AbstractProvider
     /**
      * Map the raw user array to a Socialite User instance.
      *
-     * @param array $user
+     * @param  array  $user
      *
      * @return User
      */
     protected function mapUserToObject(array $user)
     {
-        $key = $this->getConfig('userinfo_key', null);
+        $key  = $this->getConfig('userinfo_key', null);
         $data = is_null($key) === true ? $user : Arr::get($user, $key, []);
 
         return (new User())->setRaw($data)->map([
@@ -108,7 +108,7 @@ class Provider extends AbstractProvider
     /**
      * Get the POST fields for the token request.
      *
-     * @param string $code
+     * @param  string  $code
      *
      * @return array
      */
@@ -121,7 +121,7 @@ class Provider extends AbstractProvider
 
     protected function getLaravelPassportUrl($type)
     {
-        return rtrim($this->getConfig('host'), '/').'/'.ltrim(($this->getConfig($type, Arr::get([
+        return rtrim($this->getConfig('host'), '/') . '/' . ltrim(($this->getConfig($type, Arr::get([
                 'authorize_uri' => 'oauth/authorize',
                 'token_uri'     => 'oauth/token',
                 'userinfo_uri'  => 'api/user',
@@ -130,6 +130,6 @@ class Provider extends AbstractProvider
 
     protected function getUserData($user, $key)
     {
-        return Arr::get($user, $this->getConfig('user_'.$key, $key));
+        return Arr::get($user, $this->getConfig('user_' . $key, $key));
     }
 }

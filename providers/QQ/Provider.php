@@ -2,9 +2,9 @@
 
 namespace HyperfSocialiteProviders\QQ;
 
-use Cblink\Hyperf\Socialite\Two\AbstractProvider;
-use Cblink\Hyperf\Socialite\Two\User;
 use GuzzleHttp\RequestOptions;
+use Lijinhua\HyperfSocialite\Two\AbstractProvider;
+use Lijinhua\HyperfSocialite\Two\User;
 
 class Provider extends AbstractProvider
 {
@@ -42,7 +42,7 @@ class Provider extends AbstractProvider
     /**
      * {@inheritdoc}.
      *
-     * @see \Cblink\Hyperf\Socialite\Two\AbstractProvider::getAuthUrl()
+     * @see \Lijinhua\HyperfSocialite\Two\AbstractProvider::getAuthUrl()
      */
     public function getAuthUrl($state)
     {
@@ -52,7 +52,7 @@ class Provider extends AbstractProvider
     /**
      * {@inheritdoc}.
      *
-     * @see \Cblink\Hyperf\Socialite\Two\AbstractProvider::getTokenUrl()
+     * @see \Lijinhua\HyperfSocialite\Two\AbstractProvider::getTokenUrl()
      */
     protected function getTokenUrl()
     {
@@ -74,7 +74,7 @@ class Provider extends AbstractProvider
     /**
      * {@inheritdoc}.
      *
-     * @see \Cblink\Hyperf\Socialite\Two\AbstractProvider::getUserByToken()
+     * @see \Lijinhua\HyperfSocialite\Two\AbstractProvider::getUserByToken()
      */
     protected function getUserByToken($token)
     {
@@ -97,7 +97,7 @@ class Provider extends AbstractProvider
     /**
      * {@inheritdoc}.
      *
-     * @see \Cblink\Hyperf\Socialite\Two\AbstractProvider::mapUserToObject()
+     * @see \Lijinhua\HyperfSocialite\Two\AbstractProvider::mapUserToObject()
      */
     protected function mapUserToObject(array $user)
     {
@@ -110,7 +110,7 @@ class Provider extends AbstractProvider
     /**
      * {@inheritdoc}.
      *
-     * @see \Cblink\Hyperf\Socialite\Two\AbstractProvider::getTokenFields()
+     * @see \Lijinhua\HyperfSocialite\Two\AbstractProvider::getTokenFields()
      */
     protected function getTokenFields($code)
     {
@@ -122,7 +122,7 @@ class Provider extends AbstractProvider
     /**
      * {@inheritdoc}.
      *
-     * @see \Cblink\Hyperf\Socialite\Two\AbstractProvider::getAccessToken()
+     * @see \Lijinhua\HyperfSocialite\Two\AbstractProvider::getAccessToken()
      */
     public function getAccessTokenResponse($code)
     {

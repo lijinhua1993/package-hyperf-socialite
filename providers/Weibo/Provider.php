@@ -2,9 +2,9 @@
 
 namespace HyperfSocialiteProviders\Weibo;
 
-use Cblink\Hyperf\Socialite\Two\AbstractProvider;
-use Cblink\Hyperf\Socialite\Two\User;
 use GuzzleHttp\RequestOptions;
+use Lijinhua\HyperfSocialite\Two\AbstractProvider;
+use Lijinhua\HyperfSocialite\Two\User;
 
 class Provider extends AbstractProvider
 {

@@ -2,9 +2,8 @@
 
 namespace HyperfSocialiteProviders\Feishu;
 
-
-use Cblink\Hyperf\Socialite\Two\AbstractProvider;
-use Cblink\Hyperf\Socialite\Two\User;
+use Lijinhua\HyperfSocialite\Two\AbstractProvider;
+use Lijinhua\HyperfSocialite\Two\User;
 
 class Provider extends AbstractProvider
 {
@@ -28,7 +27,7 @@ class Provider extends AbstractProvider
     {
         $query = http_build_query($this->getCodeFields($state), '', '&', $this->encodingType);
 
-        return $url.'?'.$query;
+        return $url . '?' . $query;
     }
 
     /**
@@ -37,7 +36,7 @@ class Provider extends AbstractProvider
     protected function getCodeFields($state = null)
     {
         return [
-            'app_id'         => $this->getClientId(),
+            'app_id'       => $this->getClientId(),
             'redirect_uri' => $this->getRedirectUrl(),
         ];
     }
@@ -56,7 +55,7 @@ class Provider extends AbstractProvider
     protected function getUserByToken($token)
     {
         $response = $this->getHttpClient()->post('https://open.feishu.cn/open-apis/authen/v1/access_token', [
-            'json' => [
+            'json'    => [
                 'grant_type' => 'authorization_code',
                 'code'       => $this->getCode(),
             ],
@@ -68,7 +67,7 @@ class Provider extends AbstractProvider
         $user = json_decode($response->getBody(), true);
 
         $this->logger()->info('request feishu', [
-            'code' => $this->getCode(),
+            'code'     => $this->getCode(),
             'response' => $user
         ]);
 
@@ -81,16 +80,16 @@ class Provider extends AbstractProvider
     protected function mapUserToObject(array $user)
     {
         return (new User())->setRaw($user)->map([
-            'id'       => $user['open_id'],
-            'unionid'  => $user['union_id'] ?? null,
-            'nickname' => $user['name'] ?? null,
-            'avatar'   => $user['avatar_big'] ?? null,
-            'name'     => $user['name'] ?? null,
-            'email'    => $user['email'] ?? null,
-            'mobile'   => $user['mobile'] ?? null,
-            'token'   => $user['access_token'] ?? null,
-            'refreshToken'   => $user['refresh_token'] ?? null,
-            'expiresIn'   => $user['refresh_expires_in'] ?? null,
+            'id'           => $user['open_id'],
+            'unionid'      => $user['union_id'] ?? null,
+            'nickname'     => $user['name'] ?? null,
+            'avatar'       => $user['avatar_big'] ?? null,
+            'name'         => $user['name'] ?? null,
+            'email'        => $user['email'] ?? null,
+            'mobile'       => $user['mobile'] ?? null,
+            'token'        => $user['access_token'] ?? null,
+            'refreshToken' => $user['refresh_token'] ?? null,
+            'expiresIn'    => $user['refresh_expires_in'] ?? null,
             'tenant_key'   => $user['tenant_key'] ?? null,
         ]);
     }
@@ -101,7 +100,7 @@ class Provider extends AbstractProvider
     protected function getTokenFields($code)
     {
         return [
-            'app_id' => $this->getClientId(),
+            'app_id'     => $this->getClientId(),
             'app_secret' => $this->getClientSecret(),
         ];
     }

@@ -2,10 +2,10 @@
 
 namespace HyperfSocialiteProviders\Wework;
 
-use Cblink\Hyperf\Socialite\Two\AbstractProvider;
-use Cblink\Hyperf\Socialite\Two\User;
 use GuzzleHttp\RequestOptions;
-use Hyperf\Utils\Arr;
+use Hyperf\Collection\Arr;
+use Lijinhua\HyperfSocialite\Two\AbstractProvider;
+use Lijinhua\HyperfSocialite\Two\User;
 
 class ThirdQrProvider extends AbstractProvider
 {
@@ -34,7 +34,7 @@ class ThirdQrProvider extends AbstractProvider
     {
         $query = http_build_query($this->getCodeFields($state), '', '&', $this->encodingType);
 
-        return $url.'?'.$query;
+        return $url . '?' . $query;
     }
 
     /**
@@ -43,11 +43,11 @@ class ThirdQrProvider extends AbstractProvider
     protected function getCodeFields($state = null)
     {
         return [
-            'appid'         => $this->getClientId(),
-            'redirect_uri'  => $this->getRedirectUrl(),
-            'usertype'      => 'member',
-            'state'         => $state,
-            'lang'          => 'zh',
+            'appid'        => $this->getClientId(),
+            'redirect_uri' => $this->getRedirectUrl(),
+            'usertype'     => 'member',
+            'state'        => $state,
+            'lang'         => 'zh',
         ];
     }
 
@@ -56,14 +56,15 @@ class ThirdQrProvider extends AbstractProvider
      */
     protected function getUserByToken($token)
     {
-        $response = $this->getHttpClient()->request('POST','https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info', [
-            RequestOptions::JSON => [
-                'auth_code'    => $this->getCode(),
-            ],
-            RequestOptions::QUERY => [
-                'access_token' => $token,
-            ],
-        ]);
+        $response = $this->getHttpClient()->request('POST',
+            'https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info', [
+                RequestOptions::JSON  => [
+                    'auth_code' => $this->getCode(),
+                ],
+                RequestOptions::QUERY => [
+                    'access_token' => $token,
+                ],
+            ]);
 
         $user = json_decode((string) $response->getBody(), true);
 
@@ -75,7 +76,7 @@ class ThirdQrProvider extends AbstractProvider
      */
     protected function mapUserToObject(array $user)
     {
-        if (!array_key_exists('user_info', $user) || !array_key_exists('userid',$user['user_info'])) {
+        if (!array_key_exists('user_info', $user) || !array_key_exists('userid', $user['user_info'])) {
             throw new \RuntimeException('getuserinfo fail:' . json_encode($user));
         }
 
@@ -95,7 +96,7 @@ class ThirdQrProvider extends AbstractProvider
     protected function getTokenFields($code)
     {
         return [
-            'corpid' => $this->getClientId(),
+            'corpid'          => $this->getClientId(),
             'provider_secret' => $this->getClientSecret(),
         ];
     }
@@ -129,7 +130,7 @@ class ThirdQrProvider extends AbstractProvider
     /**
      * Get the access token from the token response body.
      *
-     * @param array $body
+     * @param  array  $body
      *
      * @return string
      */

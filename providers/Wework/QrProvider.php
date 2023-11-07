@@ -2,9 +2,9 @@
 
 namespace HyperfSocialiteProviders\Wework;
 
-use Cblink\Hyperf\Socialite\Two\AbstractProvider;
-use Cblink\Hyperf\Socialite\Two\User;
 use GuzzleHttp\RequestOptions;
+use Lijinhua\HyperfSocialite\Two\AbstractProvider;
+use Lijinhua\HyperfSocialite\Two\User;
 
 class QrProvider extends AbstractProvider
 {
@@ -28,7 +28,7 @@ class QrProvider extends AbstractProvider
     {
         $query = http_build_query($this->getCodeFields($state), '', '&', $this->encodingType);
 
-        return $url.'?'.$query;
+        return $url . '?' . $query;
     }
 
     /**
@@ -37,11 +37,11 @@ class QrProvider extends AbstractProvider
     protected function getCodeFields($state = null)
     {
         return [
-            'appid'         => $this->getClientId(),
-            'agentid'       => $this->getAgentId(),
+            'appid'        => $this->getClientId(),
+            'agentid'      => $this->getAgentId(),
             'redirect_uri' => $this->getRedirectUrl(),
-            'state'         => $state,
-            'lang'          => 'zh',
+            'state'        => $state,
+            'lang'         => 'zh',
         ];
     }
 
@@ -61,7 +61,7 @@ class QrProvider extends AbstractProvider
         $response = $this->getHttpClient()->get('https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo', [
             RequestOptions::QUERY => [
                 'access_token' => $token,
-                'code'       => $this->getCode(),
+                'code'         => $this->getCode(),
             ],
         ]);
 
@@ -73,7 +73,7 @@ class QrProvider extends AbstractProvider
      */
     protected function mapUserToObject(array $user)
     {
-        if (!array_key_exists('UserId',$user)) {
+        if (!array_key_exists('UserId', $user)) {
             throw new \RuntimeException('getuserinfo fail');
         }
 
@@ -93,7 +93,7 @@ class QrProvider extends AbstractProvider
     protected function getTokenFields($code)
     {
         return [
-            'corpid' => $this->getClientId(),
+            'corpid'     => $this->getClientId(),
             'corpsecret' => $this->getClientSecret(),
         ];
     }

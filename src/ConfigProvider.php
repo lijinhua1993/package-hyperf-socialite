@@ -12,12 +12,15 @@ declare(strict_types=1);
 
 namespace Lijinhua\HyperfSocialite;
 
+use Lijinhua\HyperfSocialite\Contracts\SocialiteInterface;
+
 class ConfigProvider
 {
     public function __invoke(): array
     {
         return [
             'dependencies' => [
+                SocialiteInterface::class => SocialiteManager::class,
             ],
             'commands'     => [
             ],

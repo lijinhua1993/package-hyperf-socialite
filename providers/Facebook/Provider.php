@@ -2,9 +2,9 @@
 
 namespace HyperfSocialiteProviders\Facebook;
 
-use Cblink\Hyperf\Socialite\Two\AbstractProvider;
-use Cblink\Hyperf\Socialite\Two\User;
-use Hyperf\Utils\Arr;
+use Hyperf\Collection\Arr;
+use Lijinhua\HyperfSocialite\Two\AbstractProvider;
+use Lijinhua\HyperfSocialite\Two\User;
 
 class Provider extends AbstractProvider
 {
@@ -64,7 +64,7 @@ class Provider extends AbstractProvider
      */
     public function getAuthUrl($state)
     {
-        return $this->buildAuthUrlFromBase('https://www.facebook.com/'.$this->version.'/dialog/oauth', $state);
+        return $this->buildAuthUrlFromBase('https://www.facebook.com/' . $this->version . '/dialog/oauth', $state);
     }
 
     /**
@@ -72,7 +72,7 @@ class Provider extends AbstractProvider
      */
     protected function getTokenUrl()
     {
-        return $this->graphUrl.'/'.$this->version.'/oauth/access_token';
+        return $this->graphUrl . '/' . $this->version . '/oauth/access_token';
     }
 
     /**
@@ -96,12 +96,13 @@ class Provider extends AbstractProvider
     {
         $this->lastToken = $token;
 
-        $meUrl = $this->graphUrl.'/'.$this->version.'/me?access_token='.$token.'&fields='.implode(',', $this->fields);
+        $meUrl = $this->graphUrl . '/' . $this->version . '/me?access_token=' . $token . '&fields=' . implode(',',
+                $this->fields);
 
-        if (! empty($this->getClientSecret())) {
+        if (!empty($this->getClientSecret())) {
             $appSecretProof = hash_hmac('sha256', $token, $this->getclientSecret());
 
-            $meUrl .= '&appsecret_proof='.$appSecretProof;
+            $meUrl .= '&appsecret_proof=' . $appSecretProof;
         }
 
         $response = $this->getHttpClient()->get($meUrl, [
@@ -118,16 +119,16 @@ class Provider extends AbstractProvider
      */
     protected function mapUserToObject(array $user)
     {
-        $avatarUrl = $this->graphUrl.'/'.$this->version.'/'.$user['id'].'/picture';
+        $avatarUrl = $this->graphUrl . '/' . $this->version . '/' . $user['id'] . '/picture';
 
         return (new User)->setRaw($user)->map([
-            'id' => $user['id'],
-            'nickname' => null,
-            'name' => $user['name'] ?? null,
-            'email' => $user['email'] ?? null,
-            'avatar' => $avatarUrl.'?type=normal',
-            'avatar_original' => $avatarUrl.'?width=1920',
-            'profileUrl' => $user['link'] ?? null,
+            'id'              => $user['id'],
+            'nickname'        => null,
+            'name'            => $user['name'] ?? null,
+            'email'           => $user['email'] ?? null,
+            'avatar'          => $avatarUrl . '?type=normal',
+            'avatar_original' => $avatarUrl . '?width=1920',
+            'profileUrl'      => $user['link'] ?? null,
         ]);
     }
 

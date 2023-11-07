@@ -9,14 +9,12 @@ use Hyperf\Contract\SessionInterface;
 use Hyperf\Guzzle\ClientFactory;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface;
-use Hyperf\Logger\LoggerFactory;
 use Hyperf\Stringable\Str;
 use InvalidArgumentException;
 use Lijinhua\HyperfSocialite\ConfigTrait;
 use Lijinhua\HyperfSocialite\Contracts\Provider as ProviderContract;
 use Lijinhua\HyperfSocialite\Contracts\User;
 use Lijinhua\HyperfSocialite\SocialiteWasCalled;
-use Psr\Log\LoggerInterface;
 
 abstract class AbstractProvider implements ProviderContract
 {
@@ -566,12 +564,4 @@ abstract class AbstractProvider implements ProviderContract
         return $this->session ?: new Collection();
     }
 
-    /**
-     * @return LoggerInterface
-     */
-    public function logger()
-    {
-        return \Hyperf\Support\make(LoggerFactory::class)
-            ->get('default', 'default');
-    }
 }

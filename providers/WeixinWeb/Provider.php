@@ -3,9 +3,9 @@
 namespace HyperfSocialiteProviders\WeixinWeb;
 
 use GuzzleHttp\RequestOptions;
-use Cblink\Hyperf\Socialite\Two\AbstractProvider;
-use Cblink\Hyperf\Socialite\Two\User;
-use Hyperf\Utils\Arr;
+use Hyperf\Collection\Arr;
+use Lijinhua\HyperfSocialite\Two\AbstractProvider;
+use Lijinhua\HyperfSocialite\Two\User;
 
 class Provider extends AbstractProvider
 {
@@ -24,7 +24,7 @@ class Provider extends AbstractProvider
     /**
      * set Open Id.
      *
-     * @param string $openId
+     * @param  string  $openId
      */
     public function setOpenId($openId)
     {
@@ -50,7 +50,7 @@ class Provider extends AbstractProvider
     {
         $query = http_build_query($this->getCodeFields($state), '', '&', $this->encodingType);
 
-        return $url.'?'.$query.'#wechat_redirect';
+        return $url . '?' . $query . '#wechat_redirect';
     }
 
     /**
@@ -102,7 +102,7 @@ class Provider extends AbstractProvider
             'nickname' => $user['nickname'],
             'avatar'   => $user['headimgurl'],
             'name'     => null,
-            'email' => null,
+            'email'    => null,
         ]);
     }
 
@@ -112,9 +112,9 @@ class Provider extends AbstractProvider
     protected function getTokenFields($code)
     {
         return [
-            'appid' => $this->getClientId(),
+            'appid'  => $this->getClientId(),
             'secret' => $this->getClientSecret(),
-            'code'  => $code, 'grant_type' => 'authorization_code',
+            'code'   => $code, 'grant_type' => 'authorization_code',
         ];
     }
 
@@ -128,7 +128,7 @@ class Provider extends AbstractProvider
         ]);
 
         $this->credentialsResponseBody = json_decode((string) $response->getBody(), true);
-        $this->openId = $this->credentialsResponseBody['openid'];
+        $this->openId                  = $this->credentialsResponseBody['openid'];
 
         //return $this->parseAccessToken($response->getBody());
         return $this->credentialsResponseBody;

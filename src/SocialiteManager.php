@@ -31,7 +31,7 @@ class SocialiteManager extends Manager implements SocialiteInterface
     /**
      * Build an OAuth 2 provider instance.
      *
-     * @param string $provider
+     * @param  string  $provider
      * @return AbstractProvider
      */
     public function buildProvider($provider)
@@ -62,8 +62,8 @@ class SocialiteManager extends Manager implements SocialiteInterface
     public function formatConfig(array $config): array
     {
         return array_merge([
-            'identifier' => $config['client_id'],
-            'secret' => $config['client_secret'],
+            'identifier'   => $config['client_id'],
+            'secret'       => $config['client_secret'],
             'callback_uri' => \Hyperf\Support\value($config['redirect']),
         ], $config);
     }

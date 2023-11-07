@@ -6,12 +6,10 @@ use Hyperf\Collection\Collection;
 use Hyperf\Contract\SessionInterface;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface;
-use Hyperf\Logger\LoggerFactory;
 use InvalidArgumentException;
 use League\OAuth1\Client\Credentials\TokenCredentials;
 use League\OAuth1\Client\Server\Server;
 use Lijinhua\HyperfSocialite\Contracts\Provider as ProviderContract;
-use Psr\Log\LoggerInterface;
 
 abstract class AbstractProvider implements ProviderContract
 {
@@ -203,14 +201,5 @@ abstract class AbstractProvider implements ProviderContract
     public function session()
     {
         return $this->session ?: new Collection();
-    }
-
-    /**
-     * @return LoggerInterface
-     */
-    public function logger()
-    {
-        return \Hyperf\Support\make(LoggerFactory::class)
-            ->get('default', 'default');
     }
 }

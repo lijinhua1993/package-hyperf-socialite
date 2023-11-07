@@ -2,9 +2,9 @@
 
 namespace HyperfSocialiteProviders\Wework;
 
-use Cblink\Hyperf\Socialite\Two\AbstractProvider;
-use Cblink\Hyperf\Socialite\Two\User;
 use GuzzleHttp\RequestOptions;
+use Lijinhua\HyperfSocialite\Two\AbstractProvider;
+use Lijinhua\HyperfSocialite\Two\User;
 
 class Provider extends AbstractProvider
 {
@@ -33,7 +33,7 @@ class Provider extends AbstractProvider
     {
         $query = http_build_query($this->getCodeFields($state), '', '&', $this->encodingType);
 
-        return $url.'?'.$query.'#wechat_redirect';
+        return $url . '?' . $query . '#wechat_redirect';
     }
 
     /**
@@ -43,7 +43,7 @@ class Provider extends AbstractProvider
     {
         return [
             'appid'         => $this->getClientId(),
-            'redirect_uri' => $this->getRedirectUrl(),
+            'redirect_uri'  => $this->getRedirectUrl(),
             'response_type' => 'code',
             'scope'         => $this->formatScopes($this->scopes, $this->scopeSeparator),
             'state'         => $state,
@@ -66,7 +66,7 @@ class Provider extends AbstractProvider
         $response = $this->getHttpClient()->get('https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo', [
             RequestOptions::QUERY => [
                 'access_token' => $token,
-                'code'       => $this->getCode(),
+                'code'         => $this->getCode(),
             ],
         ]);
 
@@ -78,7 +78,7 @@ class Provider extends AbstractProvider
      */
     protected function mapUserToObject(array $user)
     {
-        if (!array_key_exists('UserId',$user)) {
+        if (!array_key_exists('UserId', $user)) {
             throw new \RuntimeException('getuserinfo fail');
         }
 
@@ -98,7 +98,7 @@ class Provider extends AbstractProvider
     protected function getTokenFields($code)
     {
         return [
-            'corpid' => $this->getClientId(),
+            'corpid'     => $this->getClientId(),
             'corpsecret' => $this->getClientSecret(),
         ];
     }

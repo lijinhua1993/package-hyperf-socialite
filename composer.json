@@ -1,55 +1,60 @@
 {
-    "name": "lijinhua/hyperf-socialite",
-    "type": "library",
-    "license": "MIT",
-    "keywords": [
-        "php",
-        "hyperf"
-    ],
-    "description": "适用于hyperf的社会化登录",
-    "autoload": {
-        "psr-4": {
-            "Lijinhua\\HyperfSocialite\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "HyperfTest\\": "tests"
-        }
-    },
-    "require": {
-        "php": ">=8.0",
-        "hyperf/di": "3.0.*",
-        "hyperf/framework": "3.0.*",
-        "hyperf/guzzle": "^3.0",
-        "hyperf/http-server": "^3.0",
-        "hyperf/logger": "^3.0",
-        "league/oauth1-client": "^1.10"
-    },
-    "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.0",
-        "mockery/mockery": "^1.0",
-        "phpstan/phpstan": "^1.0",
-        "phpunit/phpunit": ">=7.0",
-        "swoole/ide-helper": "^4.5"
-    },
-    "suggest": {
-        "swow/swow": "Required to create swow components."
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "config": {
-        "optimize-autoloader": true,
-        "sort-packages": true
-    },
-    "scripts": {
-        "test": "phpunit -c phpunit.xml --colors=always",
-        "analyse": "phpstan analyse --memory-limit 1024M -l 0 ./src",
-        "cs-fix": "php-cs-fixer fix $1"
-    },
-    "extra": {
-        "hyperf": {
-            "config": "Lijinhua\\HyperfSocialite\\ConfigProvider"
-        }
+  "name": "lijinhua/hyperf-socialite",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "php",
+    "hyperf"
+  ],
+  "description": "适用于hyperf的社会化登录",
+  "autoload": {
+    "psr-4": {
+      "Lijinhua\\HyperfSocialite\\": "src/",
+      "HyperfSocialiteProviders\\": "providers/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "HyperfTest\\": "tests"
+    }
+  },
+  "require": {
+    "php": ">=8.0",
+    "firebase/php-jwt": "^5.2",
+    "hyperf/cache": "^3.0",
+    "hyperf/di": "3.0.*",
+    "hyperf/framework": "3.0.*",
+    "hyperf/guzzle": "^3.0",
+    "hyperf/http-server": "^3.0",
+    "hyperf/logger": "^3.0",
+    "lcobucci/jwt": "^4.0",
+    "league/oauth1-client": "^1.10",
+    "ext-openssl": "*"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.0",
+    "mockery/mockery": "^1.0",
+    "phpstan/phpstan": "^1.0",
+    "phpunit/phpunit": ">=7.0",
+    "swoole/ide-helper": "^4.5"
+  },
+  "suggest": {
+    "swow/swow": "Required to create swow components."
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
+  },
+  "scripts": {
+    "test": "phpunit -c phpunit.xml --colors=always",
+    "analyse": "phpstan analyse --memory-limit 1024M -l 0 ./src",
+    "cs-fix": "php-cs-fixer fix $1"
+  },
+  "extra": {
+    "hyperf": {
+      "config": "Lijinhua\\HyperfSocialite\\ConfigProvider"
+    }
+  }
 }
